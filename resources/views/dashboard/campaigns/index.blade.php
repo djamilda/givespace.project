@@ -1,55 +1,260 @@
-<x-layouts.app title="Kelola Kampanye - Givespace" bodyClass="bg-[#f8fafc] text-[#1c1b18] min-h-screen">
-    <div class="mx-auto max-w-7xl px-6 py-10 lg:px-8">
-        <div class="flex flex-col gap-6 rounded-[2rem] bg-white p-8 shadow-xl shadow-slate-300/20 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-                <p class="text-sm uppercase tracking-[0.24em] text-slate-600">Kelola Kampanye</p>
-                <h1 class="mt-3 text-3xl font-semibold text-slate-900">Panel Kampanye</h1>
-                <p class="mt-2 text-sm text-slate-600">Buat, edit, dan kelola kampanye donasi yang tampil di situs.</p>
-            </div>
-            <div class="flex flex-wrap gap-3">
-                <a href="{{ route('dashboard') }}" class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-100">Dashboard</a>
-                <a href="{{ route('campaigns.create') }}" class="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-700">Buat Kampanye Baru</a>
-            </div>
-        </div>
+<!DOCTYPE html>
 
-        @if (session('success'))
-            <div class="mt-6 rounded-3xl border border-green-200 bg-green-50 p-4 text-sm text-green-700">
-                {{ session('success') }}
+<html class="light" lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CampaignManager - Kelola Kampanye</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#943700",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#d6e0f1",
+                        "outline-variant": "#c3c6d7",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-tertiary-container": "#ffede6",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#bc4800",
+                        "surface-dim": "#d9d9e5",
+                        "on-secondary-fixed": "#121c28",
+                        "background": "#faf8ff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#360f00",
+                        "primary": "#004ac6",
+                        "on-secondary-container": "#596372",
+                        "on-background": "#191b23",
+                        "surface-tint": "#0053db",
+                        "surface": "#faf8ff",
+                        "surface-container-low": "#f3f3fe",
+                        "secondary-fixed": "#d9e3f4",
+                        "surface-variant": "#e1e2ed",
+                        "on-primary-container": "#eeefff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-surface": "#191b23",
+                        "surface-container": "#ededf9",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-primary-fixed": "#00174b",
+                        "inverse-on-surface": "#f0f0fb",
+                        "tertiary-fixed": "#ffdbcd",
+                        "surface-container-high": "#e7e7f3",
+                        "inverse-primary": "#b4c5ff",
+                        "on-secondary-fixed-variant": "#3e4755",
+                        "secondary": "#555f6d",
+                        "primary-fixed": "#dbe1ff",
+                        "primary-container": "#2563eb",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "inverse-surface": "#2e3039",
+                        "on-surface-variant": "#434655",
+                        "surface-container-highest": "#e1e2ed",
+                        "secondary-fixed-dim": "#bdc7d8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-margin": "2rem",
+                        "page-padding": "1.5rem",
+                        "card-padding": "1.5rem",
+                        "max-width-form": "32rem",
+                        "element-gap": "1rem"
+                    },
+                    "fontFamily": {
+                        "error-text": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-base": ["Inter"]
+                    },
+                    "fontSize": {
+                        "error-text": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-md": ["18px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar Section -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex justify-between items-center px-page-padding w-full h-16 fixed top-0 z-50 shadow-sm">
+    <div class="flex items-center gap-8">
+        <span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">CampaignManager</span>
+        <nav class="hidden md:flex gap-6 items-center">
+            <a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors cursor-pointer active:opacity-70 font-body-base text-body-base" href="{{ route('dashboard') }}">Dashboard</a>
+            <a class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1 font-body-base text-body-base" href="{{ route('campaigns.index') }}">Campaigns</a>
+            <a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary transition-colors cursor-pointer active:opacity-70 font-body-base text-body-base" href="#">Reports</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-4">
+        <span class="material-symbols-outlined text-secondary cursor-pointer">notifications</span>
+        <span class="material-symbols-outlined text-secondary cursor-pointer">account_circle</span>
+    </div>
+</header>
+<main class="flex-grow pt-24 pb-12">
+    <div class="max-w-6xl mx-auto p-6 space-y-6">
+        <!-- Header Section -->
+        <section class="space-y-1">
+            <h1 class="font-headline-lg text-headline-lg text-on-surface">Kelola Kampanye</h1>
+            <p class="font-body-base text-body-base text-on-surface-variant">Daftar semua inisiatif penggalangan dana yang sedang berjalan dalam sistem Anda.</p>
+        </section>
+
+        <!-- Success Alert -->
+        @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 flex items-center justify-between" role="alert">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-green-700">check_circle</span>
+                <span class="font-body-base text-body-base">{{ session('success') }}</span>
             </div>
+            <button class="material-symbols-outlined text-green-700 hover:opacity-70" onclick="this.parentElement.remove()">close</button>
+        </div>
         @endif
 
-        <div class="mt-8 overflow-hidden rounded-[2rem] bg-white shadow-xl shadow-slate-300/20">
-            <div class="grid gap-4 border-b border-slate-200 bg-slate-50 px-6 py-4 text-xs uppercase tracking-[0.2em] text-slate-600 sm:grid-cols-[2fr_2fr_1fr_1fr_1fr_1fr]">
-                <span>Judul</span>
-                <span>Deskripsi</span>
-                <span>Target</span>
-                <span>Terkumpul</span>
-                <span>Status</span>
-                <span>Aksi</span>
+        <!-- Action Row -->
+        <div class="flex justify-between items-center bg-surface-container-low p-4 rounded-lg border border-outline-variant">
+            <div class="flex gap-2">
+                <a class="px-4 py-2 bg-secondary-fixed text-on-secondary-fixed rounded-md font-label-md text-label-md hover:bg-secondary-fixed-dim transition-all flex items-center gap-2" href="{{ route('dashboard') }}">
+                    <span class="material-symbols-outlined text-[20px]">dashboard</span>
+                    Dashboard
+                </a>
             </div>
-            <div class="divide-y divide-slate-200">
-                @forelse ($campaigns as $campaign)
-                    <div class="grid gap-4 px-6 py-5 text-sm text-slate-700 sm:grid-cols-[2fr_2fr_1fr_1fr_1fr_1fr] lg:px-8">
-                        <span class="font-semibold text-slate-900">{{ $campaign->title }}</span>
-                        <span class="truncate text-slate-600">{{ $campaign->description }}</span>
-                        <span>Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</span>
-                        <span>Rp {{ number_format($campaign->donations_sum_amount ?? 0, 0, ',', '.') }}</span>
-                        <span class="font-medium text-slate-900">{{ $campaign->is_active ? 'Aktif' : 'Tidak aktif' }}</span>
-                        <span class="flex flex-wrap items-center gap-2">
-                            <a href="{{ route('campaigns.edit', $campaign) }}" class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-900 hover:bg-slate-100">Edit</a>
-                            <form action="{{ route('campaigns.destroy', $campaign) }}" method="POST" onsubmit="return confirm('Hapus kampanye ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-700 hover:bg-red-100">Hapus</button>
-                            </form>
-                        </span>
-                    </div>
-                @empty
-                    <div class="px-6 py-10 text-center text-sm text-slate-500">Belum ada kampanye. Tambahkan kampanye baru untuk mulai mengumpulkan donasi.</div>
-                @endforelse
-            </div>
+            <a class="px-4 py-2 bg-primary text-on-primary rounded-md font-label-md text-label-md hover:opacity-90 transition-all flex items-center gap-2 shadow-sm" href="{{ route('campaigns.create') }}">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                Tambah Kampanye
+            </a>
         </div>
 
-        <div class="mt-6">{{ $campaigns->links() }}</div>
+        <!-- Main Table Card -->
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full border-collapse">
+                    <thead>
+                        <tr class="bg-surface-container text-on-surface-variant">
+                            <th class="text-left px-6 py-4 font-label-md text-label-md border-b border-outline-variant uppercase tracking-wider">Judul</th>
+                            <th class="text-left px-6 py-4 font-label-md text-label-md border-b border-outline-variant uppercase tracking-wider">Deskripsi</th>
+                            <th class="text-left px-6 py-4 font-label-md text-label-md border-b border-outline-variant uppercase tracking-wider">Target Dana</th>
+                            <th class="text-left px-6 py-4 font-label-md text-label-md border-b border-outline-variant uppercase tracking-wider">Dana Terkumpul</th>
+                            <th class="text-left px-6 py-4 font-label-md text-label-md border-b border-outline-variant uppercase tracking-wider">Status</th>
+                            <th class="text-center px-6 py-4 font-label-md text-label-md border-b border-outline-variant uppercase tracking-wider">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline-variant">
+                        @forelse ($campaigns as $campaign)
+                        <tr class="hover:bg-surface-container-low transition-colors">
+                            <td class="px-6 py-4 font-body-base text-body-base text-on-surface font-medium">{{ $campaign->title }}</td>
+                            <td class="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant max-w-xs truncate" title="{{ $campaign->description }}">{{ $campaign->description }}</td>
+                            <td class="px-6 py-4 font-body-base text-body-base text-on-surface">Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</td>
+                            <td class="px-6 py-4 font-body-base text-body-base text-on-surface">Rp {{ number_format($campaign->donations_sum_amount ?? 0, 0, ',', '.') }}</td>
+                            <td class="px-6 py-4">
+                                @if ($campaign->is_active)
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Aktif
+                                </span>
+                                @else
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                    Tidak Aktif
+                                </span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <div class="flex justify-center gap-2">
+                                    <a class="p-2 text-primary hover:bg-primary-fixed rounded-md transition-all" href="{{ route('campaigns.edit', $campaign) }}" title="Edit">
+                                        <span class="material-symbols-outlined">edit</span>
+                                    </a>
+                                    <!-- Delete Campaign Form -->
+                                    <form action="{{ route('campaigns.destroy', $campaign) }}" class="inline" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="p-2 text-error hover:bg-error-container rounded-md transition-all" title="Hapus" type="submit">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td class="px-6 py-12 text-center font-body-base text-body-base text-on-surface-variant italic" colspan="6">
+                                Belum ada kampanye.
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination Section -->
+            @if ($campaigns->hasPages())
+            <div class="px-6 py-4 bg-surface-container-lowest border-t border-outline-variant">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Menampilkan {{ $campaigns->firstItem() ?? 0 }} sampai {{ $campaigns->lastItem() ?? 0 }} dari {{ $campaigns->total() }} entri
+                    </p>
+                    <div class="inline-flex items-center gap-1">
+                        {{ $campaigns->links() }}
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>
     </div>
-</x-layouts.app>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-highest border-t border-outline-variant dark:border-outline w-full py-8 px-page-padding flex flex-col md:flex-row justify-between items-center gap-4 mt-12">
+    <div class="flex flex-col items-center md:items-start">
+        <span class="font-label-md text-label-md font-semibold text-secondary">CampaignManager</span>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">© 2024 Campaign Management System. Academic Purpose Only.</p>
+    </div>
+    <nav class="flex gap-6">
+        <a class="font-body-sm text-body-sm text-on-secondary-fixed-variant hover:underline transition-all" href="#">Documentation</a>
+        <a class="font-body-sm text-body-sm text-on-secondary-fixed-variant hover:underline transition-all" href="#">Privacy Policy</a>
+        <a class="font-body-sm text-body-sm text-on-secondary-fixed-variant hover:underline transition-all" href="#">Support</a>
+    </nav>
+</footer>
+<script>
+    // Delete action confirmation dialog
+    document.querySelectorAll('form').forEach(form => {
+        const deleteBtn = form.querySelector('button[title="Hapus"]');
+        if (deleteBtn) {
+            form.addEventListener('submit', (e) => {
+                if (!confirm('Apakah Anda yakin ingin menghapus kampanye ini?')) {
+                    e.preventDefault();
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
