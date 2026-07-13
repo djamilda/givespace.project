@@ -1,0 +1,59 @@
+<<<<<<< HEAD
+@extends('layouts.app')
+
+@section('content')
+
+<h1 class="text-4xl font-bold text-[#4A3728]">
+    Dashboard
+</h1>
+
+<p class="text-gray-500 mt-2">
+    Selamat datang kembali Admin.
+</p>
+
+<div class="grid grid-cols-4 gap-6 mt-10">
+
+    <div class="bg-white rounded-3xl shadow-lg p-6">
+        <p>Total User</p>
+        <h1 class="text-4xl font-bold mt-2">320</h1>
+    </div>
+
+    <div class="bg-white rounded-3xl shadow-lg p-6">
+        <p>Campaign</p>
+        <h1 class="text-4xl font-bold mt-2">24</h1>
+    </div>
+
+    <div class="bg-white rounded-3xl shadow-lg p-6">
+        <p>Donasi</p>
+        <h1 class="text-4xl font-bold mt-2">1540</h1>
+    </div>
+
+    <div class="bg-white rounded-3xl shadow-lg p-6">
+        <p>Dana Masuk</p>
+        <h1 class="text-3xl font-bold mt-2">
+            Rp125 JT
+        </h1>
+    </div>
+
+</div>
+
+@endsection
+=======
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    {{ ("You're logged in!") }}
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
+>>>>>>> origin/main

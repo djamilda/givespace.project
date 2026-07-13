@@ -1,28 +1,32 @@
-﻿<?php
+<?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CampaignController;
-use App\Http\Controllers\CampaignPageController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DonationController;
-use App\Http\Controllers\DonationManagementController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+Route::get('/', [DashboardController::class, 'dashboard']);
 
-Route::get('/', [DonationController::class, 'index'])->name('donate');
-Route::post('/donate', [DonationController::class, 'store'])->name('donate.submit');
+Route::get('/campaign', [DashboardController::class, 'campaign']);
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/donasi', [DashboardController::class, 'donasi']);
+
+Route::get('/user', [DashboardController::class, 'user']);
+
+Route::get('/laporan', [DashboardController::class, 'laporan']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/donations', [DonationManagementController::class, 'index'])->name('dashboard.donations.index');
-    Route::resource('campaigns', CampaignController::class)->except(['show']);
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/campaigns/explore', [CampaignPageController::class, 'index'])->name('campaigns.explore');
+Route::middleware('guest')->group(function () {
+    Route::get('/admin/login', function () {
+        return view('auth.admin-login');
+    })->name('admin.login');
+});
 
-// Public campaign detail route must come after authenticated resource routes,
-// otherwise /campaigns/create is caught as a campaign parameter.
-Route::get('/campaigns/{campaign}', [CampaignPageController::class, 'show'])->name('campaigns.show');
+require __DIR__.'/auth.php';

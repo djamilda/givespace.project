@@ -2,36 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Campaign;
-use App\Models\Donation;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function dashboard()
     {
-        $totalDonations = Donation::sum('amount');
-        $totalDonors = Donation::count();
-        $activeCampaigns = Campaign::where('is_active', true)->count();
-        $totalTarget = Campaign::sum('target_amount');
-        $targetReached = $totalTarget > 0 ? min(100, (int) round($totalDonations / $totalTarget * 100)) : 0;
+        return view('dashboard');
+    }
 
-        $campaigns = Campaign::withSum('donations', 'amount')
-            ->orderByDesc('created_at')
-            ->take(3)
-            ->get();
+    public function campaign()
+    {
+        return view('campaign');
+    }
 
-        $recentDonations = Donation::with('campaign')
-            ->orderByDesc('created_at')
-            ->take(5)
-            ->get();
+    public function donasi()
+    {
+        return view('donasi');
+    }
 
-        return view('dashboard.index', compact(
-            'totalDonations',
-            'totalDonors',
-            'activeCampaigns',
-            'targetReached',
-            'campaigns',
-            'recentDonations'
-        ));
+    public function user()
+    {
+        return view('user');
+    }
+
+    public function laporan()
+    {
+        return view('laporan');
     }
 }
