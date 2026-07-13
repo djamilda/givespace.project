@@ -1,11 +1,28 @@
-<?php
+﻿<?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\CampaignPageController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DonationController;
+use App\Http\Controllers\DonationManagementController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('dashboard');
+Route::get('/', [DonationController::class, 'index'])->name('donate');
+Route::post('/donate', [DonationController::class, 'store'])->name('donate.submit');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/donations', [DonationManagementController::class, 'index'])->name('dashboard.donations.index');
+    Route::resource('campaigns', CampaignController::class)->except(['show']);
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+Route::get('/campaigns/explore', [CampaignPageController::class, 'index'])->name('campaigns.explore');
+
+// Public campaign detail route must come after authenticated resource routes,
+// otherwise /campaigns/create is caught as a campaign parameter.
+Route::get('/campaigns/{campaign}', [CampaignPageController::class, 'show'])->name('campaigns.show');
