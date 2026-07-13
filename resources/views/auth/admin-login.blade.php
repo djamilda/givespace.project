@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
     <style>
-        /* === GIVESPACE DESIGN SYSTEM === */
+        /* === GIVESPACE DESIGN SYSTEM (diambil dari layout app.blade.php) === */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
@@ -73,11 +73,10 @@
             font-family: 'Inter', system-ui, sans-serif;
         }
 
-        /* LEFT PANEL (User Version) */
+        /* LEFT PANEL */
         .login-left {
             width: 55%;
-            /* Warm, vibrant gradient for public users */
-            background: linear-gradient(145deg, #8b5e3c 0%, #a0724a 30%, #c89b7b 70%, #d4a853 100%);
+            background: linear-gradient(145deg, #2c2825 0%, #3d3530 30%, #543824 60%, #6f4a2e 100%);
             position: relative;
             display: flex;
             flex-direction: column;
@@ -92,7 +91,7 @@
             top: -80px; right: -80px;
             width: 400px; height: 400px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(212,168,83,0.12) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -102,15 +101,15 @@
             bottom: -100px; left: -60px;
             width: 360px; height: 360px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(200,155,123,0.10) 0%, transparent 70%);
             pointer-events: none;
         }
 
         .login-left-pattern {
             position: absolute;
             inset: 0;
-            opacity: 0.05;
-            background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+            opacity: 0.03;
+            background-image: radial-gradient(circle, #d4a853 1px, transparent 1px);
             background-size: 40px 40px;
             pointer-events: none;
         }
@@ -127,12 +126,10 @@
         .login-brand-logo {
             width: 48px; height: 48px;
             border-radius: 14px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: linear-gradient(135deg, #d4a853, #a0724a);
             display: flex; align-items: center; justify-content: center;
             font-size: 22px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 16px rgba(212,168,83,0.35);
         }
 
         .login-brand-name {
@@ -147,7 +144,7 @@
             font-size: 11px;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.45);
             font-weight: 500;
         }
 
@@ -161,22 +158,21 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(4px);
+            background: rgba(212,168,83,0.15);
+            border: 1px solid rgba(212,168,83,0.25);
             padding: 6px 14px;
             border-radius: 999px;
             font-size: 11px;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: #fff;
-            font-weight: 600;
+            color: #e8c47a;
+            font-weight: 500;
             margin-bottom: 24px;
         }
 
         .login-hero-badge::before {
-            content: '❤️';
-            font-size: 12px;
+            content: '✦';
+            font-size: 10px;
         }
 
         .login-hero h1 {
@@ -190,14 +186,14 @@
 
         .login-hero h1 em {
             font-style: italic;
-            color: #f5ede3;
+            color: #e8c47a;
         }
 
         .login-hero-desc {
-            font-size: 15px;
+            font-size: 14px;
             line-height: 1.75;
-            color: rgba(255,255,255,0.9);
-            max-width: 400px;
+            color: rgba(255,255,255,0.55);
+            max-width: 380px;
         }
 
         .login-features {
@@ -213,28 +209,28 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 16px;
             padding: 14px 18px;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(4px);
             transition: all 0.25s ease;
         }
 
         .login-feature-card:hover {
-            background: rgba(255,255,255,0.15);
-            border-color: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(212,168,83,0.2);
             transform: translateX(4px);
         }
 
         .login-feature-icon {
             width: 40px; height: 40px;
             border-radius: 12px;
-            background: #fff;
+            background: linear-gradient(135deg, rgba(212,168,83,0.2), rgba(160,114,74,0.2));
+            border: 1px solid rgba(212,168,83,0.2);
             display: flex; align-items: center; justify-content: center;
             font-size: 18px;
             flex-shrink: 0;
-            color: #a0724a;
         }
 
         .login-feature-title {
@@ -246,7 +242,7 @@
 
         .login-feature-desc {
             font-size: 12px;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.45);
             line-height: 1.5;
         }
 
@@ -256,7 +252,7 @@
             position: relative;
             z-index: 1;
             padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid rgba(255,255,255,0.08);
             animation: fadeInUp 0.55s ease 0.3s both;
         }
 
@@ -270,12 +266,12 @@
             font-family: 'Playfair Display', Georgia, serif;
             font-size: 22px;
             font-weight: 700;
-            color: #fff;
+            color: #e8c47a;
         }
 
         .login-stat-label {
             font-size: 11px;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.4);
             letter-spacing: 0.05em;
         }
 
@@ -475,7 +471,7 @@
             font-family: 'Inter', system-ui, sans-serif;
             letter-spacing: 0.02em;
             color: #fff;
-            background: linear-gradient(135deg, #a0724a 0%, #8b5e3c 100%);
+            background: linear-gradient(135deg, #8b5e3c 0%, #6f4a2e 100%);
             border: none;
             border-radius: 12px;
             cursor: pointer;
@@ -493,7 +489,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, #c89b7b 0%, #a0724a 100%);
+            background: linear-gradient(135deg, #a0724a 0%, #8b5e3c 100%);
             opacity: 0;
             transition: opacity 0.25s ease;
         }
@@ -558,31 +554,12 @@
         .login-form-footer {
             margin-top: 32px;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
         }
 
         .login-footer-text {
             font-size: 11px;
             color: #c4bdb6;
             line-height: 1.6;
-        }
-
-        .admin-link {
-            font-size: 12px;
-            color: #a0724a;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .admin-link:hover {
-            color: #6f4a2e;
-            text-decoration: underline;
         }
 
         @media (max-width: 900px) {
@@ -612,32 +589,32 @@
 
         <!-- Hero -->
         <div class="login-hero">
-            <div class="login-hero-badge">Orang Baik</div>
-            <h1>Mari sebarkan <em>kebaikan</em> bersama</h1>
+            <div class="login-hero-badge">Admin Panel</div>
+            <h1>Selamat datang <em>kembali</em>, Admin</h1>
             <p class="login-hero-desc">
-                Satu langkah kecil Anda dapat membawa perubahan besar bagi mereka yang membutuhkan. Mulai berdonasi sekarang.
+                Kelola kampanye donasi, pantau perkembangan, dan lihat laporan aktivitas secara real-time dari panel kontrol yang aman.
             </p>
 
             <div class="login-features" style="margin-top:32px;">
                 <div class="login-feature-card">
-                    <div class="login-feature-icon">✨</div>
+                    <div class="login-feature-icon">💼</div>
                     <div>
-                        <div class="login-feature-title">Donasi Mudah</div>
-                        <div class="login-feature-desc">Beragam metode pembayaran yang aman</div>
+                        <div class="login-feature-title">Manajemen Kampanye</div>
+                        <div class="login-feature-desc">Buat, edit, dan kelola semua kampanye</div>
                     </div>
                 </div>
                 <div class="login-feature-card">
-                    <div class="login-feature-icon">شف</div>
+                    <div class="login-feature-icon">📊</div>
                     <div>
-                        <div class="login-feature-title">100% Transparan</div>
-                        <div class="login-feature-desc">Laporan penyaluran dana yang jelas</div>
+                        <div class="login-feature-title">Laporan Real-Time</div>
+                        <div class="login-feature-desc">Pantau donasi dan progres kampanye</div>
                     </div>
                 </div>
                 <div class="login-feature-card">
-                    <div class="login-feature-icon">🌱</div>
+                    <div class="login-feature-icon">🔒</div>
                     <div>
-                        <div class="login-feature-title">Dampak Nyata</div>
-                        <div class="login-feature-desc">Lihat langsung perkembangan kampanye</div>
+                        <div class="login-feature-title">Akses Aman</div>
+                        <div class="login-feature-desc">Panel admin terproteksi & terenkripsi</div>
                     </div>
                 </div>
             </div>
@@ -646,16 +623,16 @@
         <!-- Stats -->
         <div class="login-stats">
             <div class="login-stat">
-                <div class="login-stat-num">500+</div>
-                <div class="login-stat-label">Donatur</div>
+                <div class="login-stat-num">3+</div>
+                <div class="login-stat-label">Kampanye Aktif</div>
             </div>
             <div class="login-stat">
-                <div class="login-stat-num">Rp 1M+</div>
-                <div class="login-stat-label">Tersalurkan</div>
+                <div class="login-stat-num">100%</div>
+                <div class="login-stat-label">Transparan</div>
             </div>
             <div class="login-stat">
-                <div class="login-stat-num">50+</div>
-                <div class="login-stat-label">Kampanye Sukses</div>
+                <div class="login-stat-num">24/7</div>
+                <div class="login-stat-label">Monitoring</div>
             </div>
         </div>
     </div>
@@ -665,9 +642,9 @@
         <div class="login-form-container">
             <!-- Header -->
             <div class="login-form-header">
-                <span class="login-form-label">✦ Selamat Datang</span>
-                <h2 class="login-form-title">Masuk ke Akun<br>Anda</h2>
-                <p class="login-form-subtitle">Lanjutkan langkah kebaikan Anda dengan masuk ke akun GiveSpace.</p>
+                <span class="login-form-label">✦ Masuk ke dashboard</span>
+                <h2 class="login-form-title">Panel Kontrol<br>Administrator</h2>
+                <p class="login-form-subtitle">Masukkan kredensial Anda untuk mengakses dashboard pengelolaan kampanye.</p>
             </div>
 
             <!-- Session Status -->
@@ -705,7 +682,7 @@
                             required
                             autofocus
                             autocomplete="username"
-                            placeholder="nama@email.com"
+                            placeholder="admin@givespace.id"
                             class="form-input"
                         />
                     </div>
@@ -738,34 +715,31 @@
                         Ingat saya
                     </label>
                     @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="form-link">Lupa sandi?</a>
+                        <a href="{{ route('password.request') }}" class="form-link">Lupa kata sandi?</a>
                     @else
-                        <a href="/" class="form-link">← Halaman Utama</a>
+                        <a href="/" class="form-link">← Kembali ke Publik</a>
                     @endif
                 </div>
 
                 <!-- Submit -->
                 <button type="submit" class="btn-login" id="submitBtn">
-                    <span>Masuk Sekarang</span>
+                    <span>Masuk ke Dashboard</span>
                     <span>→</span>
                 </button>
             </form>
 
             <!-- Divider -->
-            <div class="login-divider">Belum punya akun?</div>
+            <div class="login-divider">atau</div>
 
-            <!-- Back to register / public -->
-            <a href="{{ route('register') }}" class="btn-public">
-                ✨ Daftar Akun Baru
+            <!-- Back to public -->
+            <a href="{{ route('login') }}" class="btn-public">
+                👤 Masuk sebagai User Biasa
             </a>
 
             <!-- Footer -->
             <div class="login-form-footer">
-                <a href="{{ route('admin.login') }}" class="admin-link">
-                    💼 Masuk sebagai Administrator
-                </a>
                 <p class="login-footer-text">
-                    GiveSpace &bull; © <span id="year"></span> &bull; Terpercaya & Transparan
+                    GiveSpace Admin Panel &bull; © <span id="year"></span> &bull; Aman & Terenkripsi
                 </p>
             </div>
         </div>
