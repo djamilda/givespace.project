@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Givespace — Platform donasi dan berbagi kebaikan untuk Indonesia." />
-    <title>Masuk — Givespace</title>
+    <title>Lupa Sandi — Givespace</title>
 
     <!-- Google Fonts: Playfair Display + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -665,9 +665,9 @@
         <div class="login-form-container">
             <!-- Header -->
             <div class="login-form-header">
-                <span class="login-form-label">✦ Selamat Datang</span>
-                <h2 class="login-form-title">Masuk ke Akun<br>Anda</h2>
-                <p class="login-form-subtitle">Lanjutkan langkah kebaikan Anda dengan masuk ke akun GiveSpace.</p>
+                <span class="login-form-label">✦ Bantuan Akses</span>
+                <h2 class="login-form-title">Lupa Kata<br>Sandi?</h2>
+                <p class="login-form-subtitle">Tidak masalah. Masukkan email Anda dan kami akan mengirimkan tautan untuk mengatur ulang kata sandi.</p>
             </div>
 
             <!-- Session Status -->
@@ -680,7 +680,7 @@
             <!-- Error Alert -->
             @if ($errors->any())
                 <div class="login-alert-error" id="errorAlert" style="display: block;">
-                    <strong>⚠ Login Gagal:</strong>
+                    <strong>⚠ Terjadi Kesalahan:</strong>
                     <div id="errorMessage">
                         @foreach ($errors->all() as $error)
                             <div>{{ $error }}</div>
@@ -690,10 +690,10 @@
             @endif
 
             <!-- Form -->
-            <form id="loginForm" method="POST" action="{{ route('login') }}">
+            <form id="forgotPasswordForm" method="POST" action="{{ route('password.email') }}">
                 @csrf
                 <!-- Email -->
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom: 24px;">
                     <label for="email" class="form-label">Alamat Email</label>
                     <div class="form-input-wrapper">
                         <span class="form-input-icon">✉</span>
@@ -711,52 +711,19 @@
                     </div>
                 </div>
 
-                <!-- Password -->
-                <div class="form-group">
-                    <label for="password" class="form-label">Kata Sandi</label>
-                    <div class="form-input-wrapper has-toggle">
-                        <span class="form-input-icon">🔑</span>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            required
-                            autocomplete="current-password"
-                            placeholder="••••••••"
-                            class="form-input"
-                        />
-                        <button type="button" class="password-toggle" id="togglePassword" title="Tampilkan/Sembunyikan sandi">
-                            👁
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Remember & Link -->
-                <div class="form-row-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" name="remember" class="form-check" id="remember" />
-                        Ingat saya
-                    </label>
-                    @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="form-link">Lupa sandi?</a>
-                    @else
-                        <a href="/" class="form-link">← Halaman Utama</a>
-                    @endif
-                </div>
-
                 <!-- Submit -->
                 <button type="submit" class="btn-login" id="submitBtn">
-                    <span>Masuk Sekarang</span>
+                    <span>Kirim Tautan Reset</span>
                     <span>→</span>
                 </button>
             </form>
 
             <!-- Divider -->
-            <div class="login-divider">Belum punya akun?</div>
+            <div class="login-divider">Atau</div>
 
-            <!-- Back to register / public -->
-            <a href="{{ route('register') }}" class="btn-public">
-                ✨ Daftar Akun Baru
+            <!-- Back to login / public -->
+            <a href="{{ route('login') }}" class="btn-public">
+                ← Kembali ke Halaman Masuk
             </a>
 
             <!-- Footer -->
@@ -775,23 +742,12 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Password toggle
-const toggleBtn = document.getElementById('togglePassword');
-const passwordInput = document.getElementById('password');
-if (toggleBtn && passwordInput) {
-    toggleBtn.addEventListener('click', function () {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        this.textContent = type === 'password' ? '👁' : '🙈';
-    });
-}
-
 // Disable form after submit to prevent double click
-const loginForm = document.getElementById('loginForm');
+const forgotPasswordForm = document.getElementById('forgotPasswordForm');
 const submitBtn = document.getElementById('submitBtn');
 
-if (loginForm && submitBtn) {
-    loginForm.addEventListener('submit', function () {
+if (forgotPasswordForm && submitBtn) {
+    forgotPasswordForm.addEventListener('submit', function () {
         submitBtn.innerHTML = '<span>Memproses...</span>';
         submitBtn.style.opacity = '0.8';
         submitBtn.style.cursor = 'not-allowed';

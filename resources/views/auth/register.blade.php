@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Givespace — Platform donasi dan berbagi kebaikan untuk Indonesia." />
-    <title>Masuk — Givespace</title>
+    <title>Daftar — Givespace</title>
 
     <!-- Google Fonts: Playfair Display + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -665,9 +665,9 @@
         <div class="login-form-container">
             <!-- Header -->
             <div class="login-form-header">
-                <span class="login-form-label">✦ Selamat Datang</span>
-                <h2 class="login-form-title">Masuk ke Akun<br>Anda</h2>
-                <p class="login-form-subtitle">Lanjutkan langkah kebaikan Anda dengan masuk ke akun GiveSpace.</p>
+                <span class="login-form-label">✦ Mari Bergabung</span>
+                <h2 class="login-form-title">Daftar Akun<br>Baru</h2>
+                <p class="login-form-subtitle">Mulai perjalanan kebaikan Anda bersama GiveSpace.</p>
             </div>
 
             <!-- Session Status -->
@@ -680,7 +680,7 @@
             <!-- Error Alert -->
             @if ($errors->any())
                 <div class="login-alert-error" id="errorAlert" style="display: block;">
-                    <strong>⚠ Login Gagal:</strong>
+                    <strong>⚠ Registrasi Gagal:</strong>
                     <div id="errorMessage">
                         @foreach ($errors->all() as $error)
                             <div>{{ $error }}</div>
@@ -690,8 +690,28 @@
             @endif
 
             <!-- Form -->
-            <form id="loginForm" method="POST" action="{{ route('login') }}">
+            <form id="registerForm" method="POST" action="{{ route('register') }}">
                 @csrf
+                
+                <!-- Nama -->
+                <div class="form-group">
+                    <label for="name" class="form-label">Nama Lengkap</label>
+                    <div class="form-input-wrapper">
+                        <span class="form-input-icon">👤</span>
+                        <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            value="{{ old('name') }}"
+                            required
+                            autofocus
+                            autocomplete="name"
+                            placeholder="Nama Lengkap Anda"
+                            class="form-input"
+                        />
+                    </div>
+                </div>
+
                 <!-- Email -->
                 <div class="form-group">
                     <label for="email" class="form-label">Alamat Email</label>
@@ -703,7 +723,6 @@
                             type="email"
                             value="{{ old('email') }}"
                             required
-                            autofocus
                             autocomplete="username"
                             placeholder="nama@email.com"
                             class="form-input"
@@ -721,7 +740,7 @@
                             name="password"
                             type="password"
                             required
-                            autocomplete="current-password"
+                            autocomplete="new-password"
                             placeholder="••••••••"
                             class="form-input"
                         />
@@ -730,33 +749,40 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- Remember & Link -->
-                <div class="form-row-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" name="remember" class="form-check" id="remember" />
-                        Ingat saya
-                    </label>
-                    @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" class="form-link">Lupa sandi?</a>
-                    @else
-                        <a href="/" class="form-link">← Halaman Utama</a>
-                    @endif
+                
+                <!-- Confirm Password -->
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label for="password_confirmation" class="form-label">Konfirmasi Kata Sandi</label>
+                    <div class="form-input-wrapper has-toggle">
+                        <span class="form-input-icon">🔐</span>
+                        <input
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            type="password"
+                            required
+                            autocomplete="new-password"
+                            placeholder="••••••••"
+                            class="form-input"
+                        />
+                        <button type="button" class="password-toggle" id="togglePasswordConfirm" title="Tampilkan/Sembunyikan sandi">
+                            👁
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Submit -->
                 <button type="submit" class="btn-login" id="submitBtn">
-                    <span>Masuk Sekarang</span>
+                    <span>Daftar Sekarang</span>
                     <span>→</span>
                 </button>
             </form>
 
             <!-- Divider -->
-            <div class="login-divider">Belum punya akun?</div>
+            <div class="login-divider">Sudah punya akun?</div>
 
             <!-- Back to register / public -->
-            <a href="{{ route('register') }}" class="btn-public">
-                ✨ Daftar Akun Baru
+            <a href="{{ route('login') }}" class="btn-public">
+                ✨ Masuk ke Akun
             </a>
 
             <!-- Footer -->
@@ -786,12 +812,23 @@ if (toggleBtn && passwordInput) {
     });
 }
 
+// Password toggle confirm
+const toggleBtnConfirm = document.getElementById('togglePasswordConfirm');
+const passwordInputConfirm = document.getElementById('password_confirmation');
+if (toggleBtnConfirm && passwordInputConfirm) {
+    toggleBtnConfirm.addEventListener('click', function () {
+        const type = passwordInputConfirm.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInputConfirm.setAttribute('type', type);
+        this.textContent = type === 'password' ? '👁' : '🙈';
+    });
+}
+
 // Disable form after submit to prevent double click
-const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
 const submitBtn = document.getElementById('submitBtn');
 
-if (loginForm && submitBtn) {
-    loginForm.addEventListener('submit', function () {
+if (registerForm && submitBtn) {
+    registerForm.addEventListener('submit', function () {
         submitBtn.innerHTML = '<span>Memproses...</span>';
         submitBtn.style.opacity = '0.8';
         submitBtn.style.cursor = 'not-allowed';
