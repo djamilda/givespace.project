@@ -56,3 +56,16 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Protecting Local Files
+
+If you want to keep a local version of `routes/web.php` and prevent merges from overwriting it, run the helper script included in this repo:
+
+PowerShell:
+
+```
+powershell -ExecutionPolicy Bypass -File scripts\setup-protect.ps1
+```
+
+This configures a local git merge driver and relies on the `.gitattributes` entry `routes/web.php merge=ours` added to the repository. A backup of the conflicted file was saved as `routes/web.php.bak`.
+
