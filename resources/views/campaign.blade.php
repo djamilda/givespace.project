@@ -11,31 +11,28 @@
 </p>
 
 <div class="bg-white rounded-3xl shadow-lg mt-8 p-8">
-
-<table class="w-full">
-
-<tr class="border-b">
-
-<th class="text-left py-4">Nama</th>
-
-<th>Target</th>
-
-<th>Status</th>
-
-</tr>
-
-<tr>
-
-<td class="py-4">Peduli Anak Yatim</td>
-
-<td>Rp25.000.000</td>
-
-<td>Aktif</td>
-
-</tr>
-
-</table>
-
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="border-b">
+                <th class="py-4">Nama</th>
+                <th class="py-4">Target</th>
+                <th class="py-4">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($campaigns as $campaign)
+                <tr class="border-b last:border-b-0">
+                    <td class="py-4">{{ $campaign->title }}</td>
+                    <td class="py-4">Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</td>
+                    <td class="py-4">{{ $campaign->is_active ? 'Aktif' : 'Tidak Aktif' }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td class="py-8 text-center text-gray-500" colspan="3">Belum ada campaign.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
 </div>
 
 @endsection

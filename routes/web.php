@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
+
 Route::get('/', [DashboardController::class, 'dashboard']);
 
 Route::get('/campaign', [DashboardController::class, 'campaign']);
@@ -27,6 +29,10 @@ Route::middleware('guest')->group(function () {
     Route::get('/admin/login', function () {
         return view('auth.admin-login');
     })->name('admin.login');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('campaigns', CampaignController::class)->except(['show']);
 });
 
 require __DIR__.'/auth.php';
