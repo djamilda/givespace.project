@@ -24,13 +24,13 @@
 
     <div class="bg-white rounded-3xl shadow-lg p-6">
         <p>Donasi</p>
-        <h1 class="text-4xl font-bold mt-2">1540</h1>
+        <h1 class="text-4xl font-bold mt-2">{{ $donationCount }}</h1>
     </div>
 
     <div class="bg-white rounded-3xl shadow-lg p-6">
         <p>Dana Masuk</p>
         <h1 class="text-3xl font-bold mt-2">
-            Rp125 JT
+            Rp{{ number_format($totalDonations, 0, ',', '.') }}
         </h1>
     </div>
 

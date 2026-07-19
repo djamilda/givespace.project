@@ -1,9 +1,12 @@
-<x-layouts.app title="Givespace - Donasi untuk Perubahan" bodyClass="bg-gradient-to-br from-slate-100 via-sky-50 to-indigo-50 text-[#0f172a] min-h-screen">
+@extends('layouts.app')
+
+@section('content')
+<div class="min-h-screen bg-gradient-to-br from-slate-100 via-sky-50 to-indigo-50 text-[#0f172a]">
     <div class="min-h-screen">
         <header class="border-b border-white/80 bg-white/95 backdrop-blur-md sticky top-0 z-30">
             <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 lg:px-8">
                 <div>
-                    <a href="{{ route('donate') }}" class="inline-flex items-center gap-3 text-lg font-bold text-slate-900">
+                    <a href="{{ route('donasi') }}" class="inline-flex items-center gap-3 text-lg font-bold text-slate-900">
                         <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900 text-white">G</span>
                         <span>Givespace</span>
                     </a>
@@ -13,7 +16,6 @@
                     <a href="{{ route('campaigns.explore') }}" class="transition hover:text-slate-900">Jelajah Kampanye</a>
                     <a href="#fitur" class="transition hover:text-slate-900">Fitur</a>
                     <a href="#donasi" class="transition hover:text-slate-900">Donasi</a>
-                    <a href="{{ route('login') }}" class="rounded-full border border-slate-900 bg-slate-900 px-4 py-2 text-white transition hover:bg-slate-800">Masuk Admin</a>
                 </nav>
             </div>
         </header>
@@ -117,7 +119,7 @@
                                 <span class="inline-flex h-2.5 w-2.5 rounded-full bg-sky-700"></span>
                                 <span>Target transparan</span>
                             </div>
-                            <a href="{{ route('campaigns.show', $campaign) }}" class="mt-6 inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">Lihat Detail</a>
+                            <a href="{{ route('campaigns.show', ['id' => $campaign->id]) }}" class="mt-6 inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">Lihat Detail</a>
                         </article>
                     @endforeach
                 </div>
@@ -138,7 +140,7 @@
                             </div>
                         @endif
 
-                        @if ($errors->any())
+                        @if (isset($errors) && $errors->any())
                             <div class="rounded-3xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
                                 <ul class="list-disc space-y-1 pl-5">
                                     @foreach ($errors->all() as $error)
@@ -148,7 +150,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('donate.submit') }}" method="POST" class="space-y-5">
+                        <form action="{{ route('donate') }}" method="POST" class="space-y-5">
                             @csrf
                             <div>
                                 <label for="campaign" class="mb-2 block text-sm font-semibold text-slate-900">Pilih Kampanye</label>
@@ -249,4 +251,5 @@
             </section>
         </main>
     </div>
-</x-layouts.app>
+</div>
+@endsection
